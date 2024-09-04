@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Font-Awesome -->
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    rel="stylesheet"
+    />
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>   
+    <link rel="stylesheet" href="input.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="images/LEARNSPHERE1.png ">
+    <title>LearnSphere</title>
+    
+    <style>
+        /* Internal CSS for transitions and animations */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .fade-out {
+            animation: fadeOut 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        .modal-content {
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            transform: translateY(-50px);
+            opacity: 0;
+        }
+
+        .modal-show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .modal-hide {
+            transform: translateY(-50px);
+            opacity: 0;
+        }
+        
+        .button-transition {
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .button-transition:hover {
+            background-color: #004080;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-blue-600 text-black">
+
+    <!-- Background Image -->
+    <div class="bg-[url('images/LEARNSPHERE.pNg')] bg-cover bg-right h-screen flex flex-col text-black">
+        <!-- Navigation Bar -->
+        <nav class="bg-blue-600 shadow-md text-white px-5">
+            <div class="container mx-auto flex items-center justify-between p-3">
+                <a href="index.html" class="flex items-center text-white">
+                    <!-- SVG Logo -->
+                    <div class="relative w-12 h-12">
+                        <iframe loading="lazy" class="absolute inset-0 w-full h-full border-none rounded-3xl" src="https://www.canva.com/design/DAGMZvUx5ZY/2AxAi0KOsSKmjHn_uq1ptw/view?embed"></iframe>
+                    </div>
+                    <div class="text-2xl font-bold ml-3">LearnSphere</div>
+                </a>
+                <!-- Navigation Links -->
+                <ul class="flex">
+                    <li><a href="index.html" class="inline-block px-5 hover:border p-3 rounded-lg"><i class="fas fa-house"></i> Home</a></li>
+                    <li><a href="#" class="inline-block px-5 hover:border p-3 rounded-lg"><i class="fas fa-circle-info"></i> Registration</a></li>
+                    
+                    <!-- Modal toggle -->    
+                    <button id="open-modal" class="block text-blue-600 bg-white rounded-lg px-5 button-transition hover:bg-gray-200 text-center" type="button">
+                        <i class="fas fa-user"></i> Sign In
+                    </button>
+                    
+                    <!-- Main modal -->
+                    <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-gray-900 bg-opacity-50">
+                        <div class="relative p-4 w-full max-w-md max-h-full bg-white rounded-lg shadow dark:bg-gray-700 modal-content">
+                            <!-- Modal content -->
+                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                <!-- Modal header -->
+                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                    <h3 class="text-xl font-semibold text-blue-700 dark:text-white">
+                                        Sign in to our platform
+                                    </h3>
+                                    <button type="button" id="close-modal" class="text-blue-500 bg-transparent hover:bg-blue-200 hover:text-black rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="p-4 md:p-5">
+                                    <form class="space-y-4" action="#">
+                                        <div>
+                                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+                                            <input type="email" name="email" id="email" class="bg-sky-50 border border-blue-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-blue-600 dark:border-blue-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" required />
+                                        </div>
+                                        <div>
+                                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
+                                            <input type="password" name="password" id="password" placeholder="••••••••" class="bg-sky-50 border border-blue-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <div class="flex items-start">
+                                                <div class="flex items-center h-5">
+                                                    <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
+                                                </div>
+                                                <label for="remember" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
+                                            </div>
+                                            <a href="#" class="text-sm text-blue-700 hover:underline dark:text-blue-500">Lost Password?</a>
+                                        </div>
+                                        <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login to your account</button>
+                                        <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+                                            Not registered? <a href="#" class="text-blue-700 hover:underline dark:text-blue-500">Create account</a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </nav>
+       
+        <!-- welcome -->
+        <div class="flex-1 container mx-auto p-6">
+            <div class="mb-8 w-2/3 flex flex-col">
+                <div class="text-4xl text-center font-bold mb-11 text-white">Welcome to LearnSphere</div>
+                <span class="text-2xl font-semibold text-white align-text-bottom">Unlock Your Potential with LearnSphere</span>
+                <p class="mt-4 text-lg leading-7 text-white align-text-bottom">Are you ready to take your skills to the next level? At LearnSphere, 
+                    we believe that every learner has the potential to achieve greatness. Whether you're looking to advance your career, explore a new hobby, 
+                    or just stay ahead in a rapidly changing world, we're here to help you succeed.</p>
+            </div>
+        </div>
+    </div>
+
+    <main class="px-10 py-7">
+        <div>
+            <h1 class="text-4xl text-center font-bold mb-11 text-white">List of Books</h1>
+            <p class="mt-4 text-lg leading-7 text-white">Explore our carefully curated selection of bestselling books that cater to all interests and genres. Whether you're a fan of thrilling mysteries, inspiring biographies, or heartwarming fiction, we have something for everyone. Dive into captivating stories, gain new perspectives, and let your imagination soar. Start your reading journey today with LearnSphere!</p>
+    
+            <!-- Filter input (hidden by default) -->
+            <input type="text" id="filterInput" class="filter-input hidden mt-4 p-2 w-full bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent" placeholder="Filter by title or author..." />
+    
+            <!-- Fetch button -->
+            <button id="fetchButton" class="fetchButton button-transition mt-5 text-white bg-blue-500 border-2 border-green-300 hover:bg-blue-700 px-4 py-2 rounded-md text-center">Fetch</button>
+        </div>
+        
+        <div class="booklist-container mt-8">
+            <!-- Loading indicator (hidden by default) -->
+            <div class="loading hidden text-center text-white fade-in" id="loading">Loading . . .</div>
+    
+            <div class="booklist grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-5" id="booklist"></div>
+        </div>
+    
+        <!-- Pagination controls (hidden by default) -->
+        <div id="pagination" class="pagination hidden flex justify-between items-center p-5 mt-8">
+            <button id="prevPage" class="pagination-button text-white bg-blue-400 hover:bg-blue-700 px-3 py-1 rounded-md">Prev</button>
+            <span id="pageInfo" class="text-white"></span>
+            <button id="nextPage" class="pagination-button text-white bg-blue-400 hover:bg-blue-700 px-3 py-1 rounded-md">Next</button>
+        </div>
+    </main>
+    
+
+    <footer class="text-center bg-gray-50 text-blue-700 p-3">
+        <div>
+            <p>&copy; LearnSphere. All rights reserved. <br> PRANAB RAI</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="frtch.js"></script>
+
+    <script>
+        // JavaScript to handle modal visibility
+        document.getElementById('open-modal').addEventListener('click', function() {
+            var modal = document.getElementById('authentication-modal');
+            modal.classList.remove('hidden');
+            modal.querySelector('.modal-content').classList.add('modal-show');
+            modal.querySelector('.modal-content').classList.remove('modal-hide');
+        });
+
+        document.getElementById('close-modal').addEventListener('click', function() {
+            var modal = document.getElementById('authentication-modal');
+            modal.querySelector('.modal-content').classList.add('modal-hide');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300); // match the animation duration
+        });
+    </script>
+
+</body>
+</html>
